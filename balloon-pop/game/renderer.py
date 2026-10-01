@@ -26,3 +26,15 @@ def draw_banner(surface, font, text):
     surf = font.render(text, True, (180, 40, 40))
     rect = surf.get_rect(center=(surface.get_width() // 2, surface.get_height() // 2))
     surface.blit(surf, rect)
+
+
+def draw_legend(surface, font):
+    """Small color key so the balloon types are easy to tell apart."""
+    from game.balloon import BALLOON_TYPES
+    y = surface.get_height() - 28
+    x = 10
+    for kind, info in BALLOON_TYPES.items():
+        pygame.draw.circle(surface, info["color"], (x + 8, y + 10), 8)
+        label = f"{kind} {info['points']:+d}"
+        draw_text(surface, font, label, (x + 22, y))
+        x += 22 + font.size(label)[0] + 18
